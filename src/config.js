@@ -1,5 +1,5 @@
 if (!process.env.CI) {
-  require('dotenv-safe').load();
+  require('dotenv-safe').config();
 }
 
 const cfg = {};

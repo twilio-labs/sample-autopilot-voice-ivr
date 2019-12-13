@@ -92,6 +92,10 @@ npm run setup
 
 See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
 
+
+twilio api:autopilot:v1:assistants:create --friendly-name="IVR Tutorial" --unique-name="ivr-tutorial"
+
+
 4. Run the application
 
 ```bash
