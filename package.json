@@ -1,0 +1,56 @@
+{
+  "name": "sample-template-node",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./app.js",
+  "scripts": {
+    "start": "node .",
+    "setup": "configure-env",
+    "pretest": "cross-env NODE_ENV=test",
+    "test": "eslint . && mocha test",
+    "format": "eslint . --fix",
+    "dev": "nodemon ."
+  },
+  "description": "Node.js template for Twilio sample apps",
+  "author": {
+    "name": "Twilio",
+    "email": "open-source@twilio.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twilio-labs/sample-template-node"
+  },
+  "keywords": [
+    "node",
+    "twilio",
+    "express"
+  ],
+  "engines": {
+    "node": ">=8.x"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "configure-env": "^1.0.0",
+    "cookie-parser": "~1.4.3",
+    "debug": ">=2.6.9",
+    "dotenv-safe": "^4.0.4",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "pug": "^2.0.0-beta.12",
+    "serve-favicon": "^2.5.0",
+    "twilio": "^3.37.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.6.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^6.6.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4",
+    "prettier": "^1.19.1",
+    "supertest": "^4.0.2"
+  }
+}
