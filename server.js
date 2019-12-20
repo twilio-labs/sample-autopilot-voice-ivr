@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv-safe').config();
 
 const express = require('express');
 const path = require('path');
@@ -6,6 +7,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
+const frontendRoutes = require('./routes/frontend');
 const autopilotRoutes = require('./routes/autopilot');
 
 const app = express();
@@ -24,7 +26,8 @@ app.use(
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', autopilotRoutes);
+app.use('/autopilot', autopilotRoutes);
+app.use('/', frontendRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

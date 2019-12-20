@@ -4,19 +4,6 @@ const app = require('../server');
 const agent = supertest(app);
 
 describe('autopilot ivr', function() {
-  describe('GET /', function() {
-    it('returns index.html', function(done) {
-      agent
-        .get('/')
-        .expect(function(response) {
-          expect(response.text).to.contain(
-            'Voice-Powered IVR Chatbot with Autopilot'
-          );
-        })
-        .expect(200, done);
-    });
-  });
-
   describe('POST /autopilot/collect-main-menu', function() {
     const requestBodyTpl =
       '{"twilio":{"voice":{"To":"+12014250684","From":"+19734535184",' +
@@ -74,10 +61,10 @@ describe('autopilot ivr', function() {
     });
   });
 
-  describe('POST /webhook/operator', function() {
+  describe('POST /autopilot/operator-webhook', function() {
     it('returns twiml with dial', function(done) {
       agent
-        .post('/webhook/operator')
+        .post('/autopilot/operator-webhook')
         .expect(function(response) {
           expect(response.text).to.contain('<Response><Dial>');
           expect(response.text).to.contain('</Dial></Response>');

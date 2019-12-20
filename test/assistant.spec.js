@@ -1,12 +1,11 @@
 const expect = require('chai').expect;
 
-const generateOperatorActions = require('../src/actions')
-  .generateOperatorActions;
+const assistant = require('../src/assistant');
 
 describe('generate operator actions', function() {
   context('during business hours', function() {
     it('returns a redirect to support action', function() {
-      const actions = generateOperatorActions(
+      const actions = assistant.getOperatorActions(
         'http://example.com',
         new Date('2019-12-20 10:00:00')
       );
@@ -14,7 +13,7 @@ describe('generate operator actions', function() {
         {
           handoff: {
             channel: 'voice',
-            uri: 'http://example.com/webhook/operator',
+            uri: 'http://example.com/operator-webhook',
             method: 'POST',
           },
         },
@@ -24,7 +23,7 @@ describe('generate operator actions', function() {
 
   context('outside business hours', function() {
     it('returns a say and a redirect to support action', function() {
-      const actions = generateOperatorActions(
+      const actions = assistant.getOperatorActions(
         'http://example.com',
         new Date('2019-12-20 17:01:00')
       );
@@ -36,7 +35,7 @@ describe('generate operator actions', function() {
         {
           handoff: {
             channel: 'voice',
-            uri: 'http://example.com/webhook/operator',
+            uri: 'http://example.com/operator-webhook',
             method: 'POST',
           },
         },

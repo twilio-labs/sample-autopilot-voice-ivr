@@ -1,0 +1,51 @@
+extends layout
+
+block content
+  h1 IVR Setup
+  form(method='post')
+    div(class='form-group')
+        label(for='company-name') Company Name
+        input(id='company-name' name='companyName' class='form-control' value=companyName)
+    div(class='form-group')
+      h3 Sales Options
+      label(for='sales-message') Message
+      textarea(id='sales-message' name='salesMessage' class='form-control') #{salesMessage}
+      |
+      label(for='sales-option-1') Option 1
+      input(id='sales-option-1' name='salesOption1' class='form-control' value=salesOption1)
+      |
+      label(for='sales-option-1-message') Option 1 Message
+      textarea(id='sales-option-1-message' name='salesOption1Message' class='form-control') #{salesOption1Message}
+      |
+      label(for='sales-option-2') Option 2
+      input(id='sales-option-2' name='salesOption2' class='form-control' value=salesOption2)
+      |
+      label(for='sales-option-2-message') Option 2 Message
+      textarea(id='sales-option-2-message' name='salesOption2Message' class='form-control') #{salesOption2Message}
+    div(class='form-group')
+      h3 Support Options
+      label(for='support-message') Message
+      textarea(id='support-message' name='supportMessage' class='form-control') #{supportMessage}
+      |
+      label(for='support-option-1') Option 1
+      input(id='support-option-1' name='supportOption1' class='form-control' value=supportOption1)
+      |
+      label(for='support-option-1-message') Option 1 Message
+      textarea(id='support-option-1-message' name='supportOption1Message' class='form-control') #{supportOption1Message}
+      |
+      label(for='support-option-2') Option 2
+      input(id='support-option-2' name='supportOption2' class='form-control' value=supportOption2)
+      |
+      label(for='support-option-2-message') Option 2 Message
+      textarea(id='support-option-2-message' name='supportOption2Message' class='form-control') #{supportOption2Message}
+    div(class='form-group')
+      h3 Operator
+      label(for='phone-number') Phone Number
+      input(id='phone-number' name='operatorPhoneNumber' class='form-control' value=operatorPhoneNumber)
+      h4 Business hours
+      label(for='business-hours-start') From
+      input(id='business-hours-start' name='startHour' class='form-control' type='time' value=startHour)
+      |
+      label(for='business-hours-end') To
+      input(id='business-hours-end' name='endHour' class='form-control' type='time' value=endHour)
+    button(type='submit' class='btn btn-primary mb-2') Submit
