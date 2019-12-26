@@ -36,4 +36,4 @@ node_modules
 .env.local
 .env
 
-_data/setup.json
+_data/db.json

@@ -9,43 +9,33 @@ block content
     div(class='form-group')
       h3 Sales Options
       label(for='sales-message') Message
-      textarea(id='sales-message' name='salesMessage' class='form-control') #{salesMessage}
-      |
-      label(for='sales-option-1') Option 1
-      input(id='sales-option-1' name='salesOption1' class='form-control' value=salesOption1)
-      |
-      label(for='sales-option-1-message') Option 1 Message
-      textarea(id='sales-option-1-message' name='salesOption1Message' class='form-control') #{salesOption1Message}
-      |
-      label(for='sales-option-2') Option 2
-      input(id='sales-option-2' name='salesOption2' class='form-control' value=salesOption2)
-      |
-      label(for='sales-option-2-message') Option 2 Message
-      textarea(id='sales-option-2-message' name='salesOption2Message' class='form-control') #{salesOption2Message}
+      textarea(id='sales-message' name='sales.message' class='form-control') #{sales.message}
+      each val, idx in sales.options
+        |
+        label(for='sales-option-'+idx+'-question') Question #{idx+1}
+        input(id='sales-option-'+idx+'-question' name='sales.option.questions' class='form-control' value=val.question)
+        |
+        label(for='sales-option-'+idx+'-response') Response #{idx+1}
+        textarea(id='sales-option-'+idx+'-response' name='sales.option.responses' class='form-control') #{val.response}
     div(class='form-group')
       h3 Support Options
       label(for='support-message') Message
-      textarea(id='support-message' name='supportMessage' class='form-control') #{supportMessage}
-      |
-      label(for='support-option-1') Option 1
-      input(id='support-option-1' name='supportOption1' class='form-control' value=supportOption1)
-      |
-      label(for='support-option-1-message') Option 1 Message
-      textarea(id='support-option-1-message' name='supportOption1Message' class='form-control') #{supportOption1Message}
-      |
-      label(for='support-option-2') Option 2
-      input(id='support-option-2' name='supportOption2' class='form-control' value=supportOption2)
-      |
-      label(for='support-option-2-message') Option 2 Message
-      textarea(id='support-option-2-message' name='supportOption2Message' class='form-control') #{supportOption2Message}
+      textarea(id='support-message' name='support.message' class='form-control') #{support.message}
+      each val, idx in support.options
+        |
+        label(for='support-option-'+idx+'-question') Question #{idx+1}
+        input(id='support-option-'+idx+'-question' name='support.option.questions' class='form-control' value=val.question)
+        |
+        label(for='support-option-'+idx+'-message') Response #{idx+1}
+        textarea(id='support-option-'+idx+'-message' name='support.option.responses' class='form-control') #{val.response}
     div(class='form-group')
       h3 Operator
       label(for='phone-number') Phone Number
-      input(id='phone-number' name='operatorPhoneNumber' class='form-control' value=operatorPhoneNumber)
+      input(id='phone-number' name='operator.phoneNumber' class='form-control' value=operator.phoneNumber)
       h4 Business hours
       label(for='business-hours-start') From
-      input(id='business-hours-start' name='startHour' class='form-control' type='time' value=startHour)
+      input(id='business-hours-start' name='businessHours.start' class='form-control' type='time' value=businessHours.start)
       |
       label(for='business-hours-end') To
-      input(id='business-hours-end' name='endHour' class='form-control' type='time' value=endHour)
+      input(id='business-hours-end' name='businessHours.end' class='form-control' type='time' value=businessHours.end)
     button(type='submit' class='btn btn-primary mb-2') Submit

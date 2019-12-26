@@ -53,7 +53,15 @@ describe('autopilot ivr', function() {
           })
           .expect(function(response) {
             expect(JSON.parse(response.text)).to.eql({
-              actions: [{ redirect: 'http://127.0.0.1/autopilot/operator' }],
+              actions: [
+                {
+                  handoff: {
+                    channel: 'voice',
+                    uri: 'http://127.0.0.1/autopilot/operator-webhook',
+                    method: 'POST',
+                  },
+                },
+              ],
             });
           })
           .expect(200, done);

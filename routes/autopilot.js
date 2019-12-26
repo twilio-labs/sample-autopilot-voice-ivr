@@ -2,6 +2,7 @@
 const twilio = require('twilio');
 const express = require('express');
 const assistant = require('../src/assistant');
+const Setup = require('../src/db').Setup;
 
 /* eslint-disable new-cap */
 const router = express.Router();
@@ -9,16 +10,21 @@ const router = express.Router();
 // POST: /collect/main-menu
 router.post('/collect-main-menu', function(req, res, next) {
   const options = JSON.parse(req.body.Memory).twilio.collected_data.options;
+  const answer = options.answers.option.answer;
   if (options.status === 'complete') {
-    if (['sales', 'support'].includes(options.answers.option.answer)) {
+    if (['sales', 'support'].includes(answer)) {
       res.send({
-        actions: [{ redirect: `task://${options.answers.option.answer}` }],
+        actions: [{ redirect: `task://${answer}` }],
       });
-    } else if (options.answers.option.answer === 'operator') {
+    } else if (answer === 'operator') {
       res.send({
         actions: [
           {
-            redirect: `${req.protocol}://${req.hostname}${req.baseUrl}/operator`,
+            handoff: {
+              channel: 'voice',
+              uri: `${req.protocol}://${req.hostname}${req.baseUrl}/operator-webhook`,
+              method: 'POST',
+            },
           },
         ],
       });
@@ -37,16 +43,21 @@ router.post('/collect-main-menu', function(req, res, next) {
   }
 });
 
-router.post('/operator', function(req, res, next) {
+router.post('/greeting', function(req, res, next) {
   const baseUrl = `${req.protocol}://${req.hostname}${req.baseUrl}`;
-  const actions = assistant.getOperatorActions(baseUrl, new Date());
-  res.send({ actions: actions });
+  Setup.get().then(setup =>
+    res.send({
+      actions: assistant.getGreetingActions(setup, baseUrl, new Date()),
+    })
+  );
 });
 
 router.post('/operator-webhook', function(req, res, next) {
   const response = new twilio.twiml.VoiceResponse();
-  response.dial(assistant.config.operatorPhoneNumber);
-  res.send(response.toString());
+  Setup.get().then(setup => {
+    response.dial(setup.operator.phoneNumber);
+    res.send(response.toString());
+  });
 });
 
 module.exports = router;

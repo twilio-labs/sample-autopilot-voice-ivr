@@ -1,18 +1,8 @@
 const moment = require('moment');
-const fs = require('fs');
 
-const cfg = require('../src/config');
+const cfg = require('./config');
 
 const client = require('twilio')(cfg.twilioAccountSid, cfg.twilioAuthToken);
-
-const configFile = '_data/config.json';
-
-const assistant = {
-  config: loadAssistantConfig(),
-  update: updateAssistant,
-  saveConfig: saveAssistantConfig,
-  getOperatorActions: generateOperatorActions,
-};
 
 /**
  * Creates an slug from a name or title
@@ -25,40 +15,56 @@ function slugify(title) {
 
 /**
  * Generates the actions for the operator task
+ * @param {Setup} setup
  * @param {string} baseUrl
  * @param {Date} date
  * @return {object[]}
  */
-function generateOperatorActions(baseUrl, date) {
-  const actions = [];
+function getGreetingActions(setup, baseUrl, date) {
+  const message = `Thanks for calling ${setup.companyName}.`;
+  const startParts = setup.businessHours.start.split(':');
+  const start = moment(date)
+    .set('hours', parseInt(startParts[0]))
+    .set('minutes', parseInt(startParts[1]));
+  const endParts = setup.businessHours.end.split(':');
+  const end = moment(date)
+    .set('hours', parseInt(endParts[0]))
+    .set('minutes', parseInt(endParts[1]));
   const now = moment(date);
-  console.log(now.weekday(), now.hour());
-  if (
-    0 < now.weekday() &&
-    now.weekday() < 6 &&
-    (now.hour() < 9 || now.hour() > 16)
-  ) {
-    actions.push({
-      say:
-        'Please hold while we connect you with an operator as you are calling outside of regular business hours.',
-    });
+  let actions;
+  if (0 < now.weekday() && now.weekday() < 6 && (now < start || now > end)) {
+    actions = [
+      {
+        say: `${message} Please hold while we connect you with an operator as you are calling outside of regular business hours.`,
+      },
+      {
+        handoff: {
+          channel: 'voice',
+          uri: `${baseUrl}/operator-webhook`,
+          method: 'POST',
+        },
+      },
+    ];
+  } else {
+    actions = [
+      {
+        say: message,
+      },
+      {
+        redirect: 'task://main-menu',
+      },
+    ];
   }
-  actions.push({
-    handoff: {
-      channel: 'voice',
-      uri: `${baseUrl}/operator-webhook`,
-      method: 'POST',
-    },
-  });
   return actions;
 }
 
 /**
  * Gets or creates a new assistant for the IVR Tutorial
  * @param {string} name
+ * @param {string} baseUrl
  * @return {Promise<AssistantInstance>}
  */
-async function getOrCreateAssistant(name) {
+async function updateOrCreateAssistant(name, baseUrl) {
   const uniqueName = slugify(name);
   const assistants = await client.autopilot.assistants.list();
 
@@ -73,7 +79,24 @@ async function getOrCreateAssistant(name) {
       uniqueName: uniqueName,
       defaults: {
         defaults: {
-          assistant_initiation: `task://greeting`,
+          assistant_initiation: `${baseUrl}/autopilot/greeting`,
+          fallback: `task://main-menu`,
+        },
+      },
+      styleSheet: {
+        style_sheet: {
+          voice: {
+            say_voice: 'Polly.Matthew',
+          },
+        },
+      },
+    });
+  } else {
+    console.log(`Update assistant: "${name}"`);
+    await assistant.update({
+      defaults: {
+        defaults: {
+          assistant_initiation: `${baseUrl}/autopilot/greeting`,
           fallback: `task://main-menu`,
         },
       },
@@ -110,40 +133,6 @@ async function linkAssistantToPhoneNumber(assistant, accountSid, phoneNumber) {
 }
 
 /**
- * Create or update the greeting task
- * @param {AssistantInstance} assistant
- * @param {Array<TaskInstance>} tasks
- * @param {string} companyName
- * @return {Promise<TaskInstance>}
- */
-async function createOrUpdateGreetingTask(assistant, tasks, companyName) {
-  let task = await tasks.find(task => task.uniqueName === 'greeting');
-  const actions = {
-    actions: [
-      {
-        say: `Thanks for calling ${companyName}`,
-      },
-      {
-        redirect: 'task://main-menu',
-      },
-    ],
-  };
-  if (task === undefined) {
-    console.log('Create "Greeting" task');
-    task = await assistant.tasks().create({
-      friendlyName: 'Greeting',
-      uniqueName: 'greeting',
-      actions: actions,
-    });
-  } else {
-    task.update({
-      actions: actions,
-    });
-  }
-  return task;
-}
-
-/**
  * Create or update the Main Menu task for the assistant
  * @param {AssistantInstance} assistant
  * @param {TaskInstance[]} tasks
@@ -151,7 +140,7 @@ async function createOrUpdateGreetingTask(assistant, tasks, companyName) {
  * @return {Promise<TaskInstance>}
  */
 async function createOrUpdateMainMenuTask(assistant, tasks, baseUrl) {
-  let task = await tasks.find(task => task.uniqueName === 'greeting');
+  let task = tasks.find(task => task.uniqueName === 'main-menu');
   const actions = {
     actions: [
       {
@@ -195,8 +184,10 @@ async function createOrUpdateMainMenuTask(assistant, tasks, baseUrl) {
       language: 'en-US',
     });
   } else {
-    console.log('Updating "Main Menu" task');
-    task.update({ actions: actions });
+    console.log('Update "Main Menu" task');
+    await task.update({
+      actions: actions,
+    });
   }
   return task;
 }
@@ -208,7 +199,7 @@ async function createOrUpdateMainMenuTask(assistant, tasks, baseUrl) {
  * @param {string} name
  * @param {string} message
  * @param {string[]} taggedTexts
- * @param {string[]|null} nextTasks
+ * @param {string[]} nextTasks
  * @return {Promise<TaskInstance>}
  */
 async function createOrUpdateGenericTask(
@@ -221,13 +212,14 @@ async function createOrUpdateGenericTask(
 ) {
   const uniqueName = slugify(name);
   const actions = { actions: [{ say: message }] };
-  if (nextTasks) {
+
+  if (nextTasks.length > 1) {
     actions.actions.push({
       listen: { tasks: nextTasks },
     });
   } else {
     actions.actions.push({
-      redirect: 'task://main-menu',
+      redirect: `task://${nextTasks[0]}`,
     });
   }
 
@@ -262,13 +254,13 @@ async function createOrUpdateGenericTask(
 
 /**
  * Update or creates the whole workflow of the autopilot assistant
+ * @param {Setup} setup
  * @param {string} baseUrl
- * @param {object} setup
  * @return {Promise<void>}
  */
-async function updateAssistant(baseUrl) {
+async function updateAssistant(setup, baseUrl) {
   try {
-    const assistant = await getOrCreateAssistant('IVR Tutorial');
+    const assistant = await updateOrCreateAssistant('IVR Tutorial', baseUrl);
     await linkAssistantToPhoneNumber(
       assistant,
       cfg.twilioAccountSid,
@@ -277,65 +269,52 @@ async function updateAssistant(baseUrl) {
 
     const tasks = await assistant.tasks().list();
 
-    await createOrUpdateGreetingTask(
-      assistant,
-      tasks,
-      assistant.config.companyName
-    );
     await createOrUpdateMainMenuTask(assistant, tasks, baseUrl);
 
+    let nextTasks = [];
+    for (let idx = setup.sales.options.length; idx > 0; idx--) {
+      const name = `Sales Option ${idx}`;
+      const option = setup.sales.options[idx - 1];
+      await createOrUpdateGenericTask(
+        assistant,
+        tasks,
+        name,
+        option.response,
+        [option.question],
+        ['main-menu'].concat(nextTasks)
+      );
+      nextTasks.push(slugify(name));
+    }
     await createOrUpdateGenericTask(
       assistant,
       tasks,
       'Sales',
-      assistant.config.salesMessage,
+      setup.sales.message,
       ['sales'],
-      ['sales-option-1', 'sales-option-2', 'main-menu']
+      ['main-menu'].concat(nextTasks)
     );
 
-    await createOrUpdateGenericTask(
-      assistant,
-      tasks,
-      'Sales Option 1',
-      assistant.config.salesOption1Message,
-      [assistant.config.salesOption1],
-      ['sales-option-2', 'main-menu']
-    );
-
-    await createOrUpdateGenericTask(
-      assistant,
-      tasks,
-      'Sales Option 2',
-      assistant.config.salesOption2Message,
-      [assistant.config.salesOption2],
-      null
-    );
-
+    nextTasks = [];
+    for (let idx = setup.support.options.length; idx > 0; idx--) {
+      const name = `Support Option ${idx}`;
+      const option = setup.support.options[idx - 1];
+      await createOrUpdateGenericTask(
+        assistant,
+        tasks,
+        name,
+        option.response,
+        [option.question],
+        ['main-menu'].concat(nextTasks)
+      );
+      nextTasks.push(slugify(name));
+    }
     await createOrUpdateGenericTask(
       assistant,
       tasks,
       'Support',
-      assistant.config.supportMessage,
+      setup.support.message,
       ['support'],
-      ['support-option-1', 'support-option-2', 'main-menu']
-    );
-
-    await createOrUpdateGenericTask(
-      assistant,
-      tasks,
-      'Support Option 1',
-      assistant.config.supportOption1Message,
-      [assistant.config.supportOption1],
-      ['support-option-2', 'main-menu']
-    );
-
-    await createOrUpdateGenericTask(
-      assistant,
-      tasks,
-      'Support Option 2',
-      assistant.config.supportOption2Message,
-      [assistant.config.supportOption2],
-      null
+      ['main-menu'].concat(nextTasks)
     );
 
     await assistant.modelBuilds().create();
@@ -344,46 +323,7 @@ async function updateAssistant(baseUrl) {
   }
 }
 
-/**
- *
- * @return {object}
- */
-function loadAssistantConfig() {
-  try {
-    return JSON.parse(fs.readFileSync(configFile).toString());
-  } catch (e) {
-    return {
-      companyName: 'Teldigo',
-      startHour: '09:00',
-      endHour: '17:00',
-      // sales messages
-      salesMessage:
-        'You can ask about the apartment at 375 Beale, ask “who the realtor is”, or say “main menu” to start over.',
-      salesOption1: 'tell me about the apartment',
-      salesOption1Message:
-        'The apartment at 375 beale is a $500 a month: 2 bedroom 1 bath and 650 square feet. What would you like to do, you can ask “who the realtor is” or say “main menu” to start over.',
-      salesOption2: 'who the realtor is',
-      salesOption2Message: 'Your realtor is Jom Dundel.',
-      // support messages
-      supportMessage:
-        'What would you like to do, you can ask “who the support agent is”, "what the support hours are" or say “main menu” to start over.',
-      supportOption1: 'who the support agent is',
-      supportOption1Message: 'Your support agent is Jom Dundel.',
-      supportOption2: 'what the support hours are',
-      supportOption2Message:
-        'Our support office hours are from 9:00AM to 5:00PM Monday - Friday, and from 10:00AM to 2:00PM on Saturday and Sunday. ',
-      operatorPhoneNumber: '+1234567890',
-    };
-  }
-}
-
-/**
- * Save the assistant config to a JSON file
- */
-function saveAssistantConfig() {
-  fs.writeFile(configFile, JSON.stringify(assistant.config), () =>
-    console.log('Setup saved!')
-  );
-}
-
-module.exports = assistant;
+module.exports = {
+  updateAssistant,
+  getGreetingActions,
+};
