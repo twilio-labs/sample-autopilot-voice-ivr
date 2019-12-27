@@ -2,13 +2,13 @@
 <img  src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg"  alt="Twilio"  width="250"  />
 </a>
  
-# Twilio Sample App Template
+# Voice-Powered IVR Chatbot with Autopilot
 
-[![Actions Status](https://github.com/twilio-labs/sample-template-nodejs/workflows/Node%20CI/badge.svg)](https://github.com/twilio-labs/sample-appointment-reminders/actions)
+[![Actions Status](https://github.com/TwilioDevEd/sample-autopilot-voice-ivr/workflows/Node%20CI/badge.svg)](https://github.com/TwilioDevEd/sample-autopilot-voice-ivr/actions)
 
 ## About
 
-This is a GitHub template for creating other [Twilio] sample/template apps. It contains a variety of features that should ideally be included in every Twilio sample app. You can use [GitHub's repository template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) functionality to create a copy of this.
+This is an IVR (Interactive Voice Response) sample application built using [Twilio Autopilot](https://www.twilio.com/docs/autopilot). It has a basic workflow for an IVR with 
 
 Implementations in other languages:
 
@@ -58,7 +58,7 @@ We can render UML diagrams using [Mermaid](https://mermaidjs.github.io/).
 ### Twilio Account Settings
 
 This application should give you a ready-made starting point for writing your
-own appointment reminder application. Before we begin, we need to collect
+own Autopilot IVR application. Before we begin, we need to collect
 all the config values we need to run the application:
 
 | Config&nbsp;Value | Description                                                                                                                                                  |
@@ -128,19 +128,15 @@ Please be aware that some of these might charge you for the usage or might make 
 
 | Service                           |                                                                                                                                                                                                                           |
 | :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Heroku](https://www.heroku.com/) | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)                                                                                                                                       |
-| [Glitch](https://glitch.com)      | [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/clone-from-repo?REPO_URL=https://github.com/twilio-labs/sample-template-nodejs.git) |
-| [Zeit](https://zeit.co/)          | [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/twilio-labs/sample-template-nodejs/tree/master)                                                                 |
-
-## Resources
-
-- [GitHub's repository template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) functionality
+| [Heroku](https://www.heroku.com/) | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TwilioDeved/sample-autopilot-voice-ivr/tree/master)                                                                                                                                       |
+| [Glitch](https://glitch.com)      | [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/clone-from-repo?REPO_URL=https://github.com/TwilioDevEd/sample-autopilot-voice-ivr.git) |
+| [Zeit](https://zeit.co/)          | [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/twilio-labs/sample-autopilot-voice-ivr/tree/master)                                                                 |
 
 ## Contributing
 
-This template is open source and welcomes contributions. All contributions are subject to our [Code of Conduct](https://github.com/twilio-labs/.github/blob/master/CODE_OF_CONDUCT.md).
+This tutorial is open source and welcomes contributions. All contributions are subject to our [Code of Conduct](https://github.com/twilio-labs/.github/blob/master/CODE_OF_CONDUCT.md).
 
-[Visit the project on GitHub](https://github.com/twilio-labs/sample-template-nodejs)
+[Visit the project on GitHub](https://github.com/TwilioDevEd/sample-autopilot-voice-ivr)
 
 ## License
 
