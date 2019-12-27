@@ -1,12 +1,7 @@
 'use strict';
-require('dotenv-safe').config();
-
 const express = require('express');
-
 const cfg = require('../src/config');
-
 const assistant = require('../src/assistant');
-
 const Setup = require('../src/db').Setup;
 
 /* eslint-disable new-cap */
