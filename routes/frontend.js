@@ -56,7 +56,7 @@ router.post('/setup', function(req, res, next) {
     .save()
     .then(setup => assistant.updateAssistant(setup, baseUrl));
 
-  res.redirect('/setup');
+  res.redirect('/');
 });
 
 module.exports = router;

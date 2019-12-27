@@ -8,7 +8,8 @@
 
 ## About
 
-This is an IVR (Interactive Voice Response) sample application built using [Twilio Autopilot](https://www.twilio.com/docs/autopilot). It has a basic workflow for an IVR with 
+This application shows how to build an IVR (Interactive Voice Response) application using [Twilio Autopilot](https://www.twilio.com/docs/autopilot).
+It has a basic setup for an IVR workflow with 
 
 Implementations in other languages:
 
@@ -32,21 +33,11 @@ We can render UML diagrams using [Mermaid](https://mermaidjs.github.io/).
 ## Features
 
 - Node.js web server using [Express.js](https://npm.im/express)
-- Basic web user interface using [Pug](https://npm.im/pug) for templating and Bootstrap for UI
-- User interface to create reminders.
+- User interface to setup IVR responses using [Twilio Helper Library](https://www.twilio.com/docs/libraries/node).
+- Small JSON database using lowdb.
 - Unit tests using [`mocha`](https://npm.im/mocha) and [`chai`](https://npm.im/chai)
 - [Automated CI testing using GitHub Actions](/.github/workflows/nodejs.yml)
-- Linting and formatting using [ESLint](https://npm.im/eslint) and [Prettier](https://npm.im/prettier)
-- Interactive configuration of environment variables upon running `npm run setup` using [`configure-env`](https://npm.im/configure-env)
-- Project specific environment variables using `.env` files and [`dotenv-safe`](https://npm.im/dotenv-safe) by comparing `.env.example` and `.env`.
 - One click deploy buttons for Heroku, Glitch and now.sh
-
-## How to use it
-
-1. Create a copy using [GitHub's repository template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) functionality
-2. Update the [`README.md`](README.md), [`package.json`](package.json) and [`app.json`](app.json) with the respective values.
-3. Build your app as necessary while making sure the tests pass.
-4. Publish your app to GitHub
 
 ## Set up
 
@@ -58,7 +49,7 @@ We can render UML diagrams using [Mermaid](https://mermaidjs.github.io/).
 ### Twilio Account Settings
 
 This application should give you a ready-made starting point for writing your
-own Autopilot IVR application. Before we begin, we need to collect
+own IVR application using Autopilot. Before we begin, we need to collect
 all the config values we need to run the application:
 
 | Config&nbsp;Value | Description                                                                                                                                                  |
@@ -74,7 +65,7 @@ After the above requirements have been met:
 1. Clone this repository and `cd` into it
 
 ```bash
-git clone git@github.com:twilio-labs/sample-template-nodejs.git
+git clone git@github.com:TwilioDevEd/sample-autopilot-voice-ivr.git
 cd sample-template-nodejs
 ```
 
@@ -92,10 +83,6 @@ npm run setup
 
 See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
 
-
-twilio api:autopilot:v1:assistants:create --friendly-name="IVR Tutorial" --unique-name="ivr-tutorial"
-
-
 4. Run the application
 
 ```bash
@@ -108,7 +95,11 @@ Alternatively, you can use this command to start the server in development mode.
 npm run dev
 ```
 
-5. Navigate to [http://localhost:3000](http://localhost:3000)
+Your application is now accessible at [http://localhost:3000](http://localhost:3000/)
+
+5. Make the application visible from the outside world using ngrok.
+
+Your application needs to be accessible in a public internet address for Twilio to be able to connect with it. 
 
 That's it!
 
@@ -130,7 +121,13 @@ Please be aware that some of these might charge you for the usage or might make 
 | :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [Heroku](https://www.heroku.com/) | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TwilioDeved/sample-autopilot-voice-ivr/tree/master)                                                                                                                                       |
 | [Glitch](https://glitch.com)      | [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/clone-from-repo?REPO_URL=https://github.com/TwilioDevEd/sample-autopilot-voice-ivr.git) |
-| [Zeit](https://zeit.co/)          | [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/twilio-labs/sample-autopilot-voice-ivr/tree/master)                                                                 |
+| [Zeit](https://zeit.co/)          | [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/TwilioDevEd/sample-autopilot-voice-ivr/tree/master)                                                                 |
+
+
+## Resources
+
+- [Getting started with Twilio Autopilot (Video)](https://www.youtube.com/watch?v=edViFb-A0zw)
+- [Autopilot Quickstart](https://www.twilio.com/docs/autopilot/quickstart)
 
 ## Contributing
 
