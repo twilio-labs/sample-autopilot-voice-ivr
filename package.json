@@ -10,6 +10,7 @@
     "test": "eslint . && mocha test",
     "format": "eslint . --fix",
     "dev": "nodemon .",
+    "build": "",
     "initialize": ""
   },
   "description": "Voice-Powered IVR Chatbot with Autopilot",

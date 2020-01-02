@@ -3,39 +3,39 @@ extends layout
 block content
   h1 IVR Setup
   form(method='post')
-    div(class='form-group')
+    .form-group
         label(for='company-name') Company Name
-        input(id='company-name' name='companyName' class='form-control' value=companyName)
-    div(class='form-group')
+        input#company-name.form-control(name='companyName' value=companyName)
+    .form-group
       h3 Sales Options
       label(for='sales-message') Message
-      textarea(id='sales-message' name='sales.message' class='form-control') #{sales.message}
+      textarea#sales-message.form-control(name='sales.message') #{sales.message}
       each val, idx in sales.options
         |
         label(for='sales-option-'+idx+'-question') Question #{idx+1}
-        input(id='sales-option-'+idx+'-question' name='sales.option.questions' class='form-control' value=val.question)
+        input.form-control(id='sales-option-'+idx+'-question' name='sales.option.questions' value=val.question)
         |
         label(for='sales-option-'+idx+'-response') Response #{idx+1}
-        textarea(id='sales-option-'+idx+'-response' name='sales.option.responses' class='form-control') #{val.response}
-    div(class='form-group')
+        textarea.form-control(id='sales-option-'+idx+'-response' name='sales.option.responses') #{val.response}
+    .form-group
       h3 Support Options
       label(for='support-message') Message
-      textarea(id='support-message' name='support.message' class='form-control') #{support.message}
+      textarea#support-message.form-control(name='support.message') #{support.message}
       each val, idx in support.options
         |
         label(for='support-option-'+idx+'-question') Question #{idx+1}
-        input(id='support-option-'+idx+'-question' name='support.option.questions' class='form-control' value=val.question)
+        input.form-control(id='support-option-'+idx+'-question' name='support.option.questions' value=val.question)
         |
         label(for='support-option-'+idx+'-message') Response #{idx+1}
-        textarea(id='support-option-'+idx+'-message' name='support.option.responses' class='form-control') #{val.response}
-    div(class='form-group')
+        textarea.form-control(id='support-option-'+idx+'-message' name='support.option.responses') #{val.response}
+    .form-group
       h3 Operator
       label(for='phone-number') Phone Number
-      input(id='phone-number' name='operator.phoneNumber' class='form-control' value=operator.phoneNumber)
+      input#phone-number.form-control(name='operator.phoneNumber' value=operator.phoneNumber)
       h4 Business hours
       label(for='business-hours-start') From
-      input(id='business-hours-start' name='businessHours.start' class='form-control' type='time' value=businessHours.start)
+      input#business-hours-start.form-control(name='businessHours.start' type='time' value=businessHours.start)
       |
       label(for='business-hours-end') To
-      input(id='business-hours-end' name='businessHours.end' class='form-control' type='time' value=businessHours.end)
-    button(type='submit' class='btn btn-primary mb-2') Submit
+      input#business-hours-end.form-control(name='businessHours.end' type='time' value=businessHours.end)
+    button.btn.btn-primary.mb-2(type='submit') Submit

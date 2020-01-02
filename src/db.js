@@ -1,5 +1,6 @@
 const low = require('lowdb');
 const FileAsync = require('lowdb/adapters/FileAsync');
+const Memory = require('lowdb/adapters/Memory');
 
 const defaultSetup = {
   companyName: 'Teldigo',
@@ -42,11 +43,10 @@ const defaultSetup = {
   },
 };
 
-const adapter = new FileAsync('_data/db.json', {
-  defaultValue: {
-    setup: defaultSetup,
-  },
-});
+const adapter =
+  process.env.NODE_ENV === 'test'
+    ? new Memory()
+    : new FileAsync('_data/db.json');
 
 let db;
 
@@ -60,6 +60,7 @@ async function getDb() {
   }
 
   db = await low(adapter);
+  db.defaults({ setup: defaultSetup }).write();
   return db;
 }
 

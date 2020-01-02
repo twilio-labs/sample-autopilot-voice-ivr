@@ -30,33 +30,40 @@ router.post('/setup', function(req, res, next) {
     },
     sales: {
       message: req.body['sales.message'],
-      options: [],
+      options: createOptions(
+        req.body['sales.option.questions'],
+        req.body['sales.option.responses']
+      ),
     },
     support: {
       message: req.body['support.message'],
-      options: [],
+      options: createOptions(
+        req.body['support.option.questions'],
+        req.body['support.option.responses']
+      ),
     },
     operator: {
       phoneNumber: req.body['operator.phoneNumber'],
     },
   };
-  for (let i = 0; i < req.body['sales.option.questions'].length; i++) {
-    data.sales.options.push({
-      question: req.body['sales.option.questions'][i],
-      response: req.body['sales.option.responses'][i],
-    });
-  }
-  for (let i = 0; i < req.body['support.option.questions'].length; i++) {
-    data.support.options.push({
-      question: req.body['support.option.questions'][i],
-      response: req.body['support.option.responses'][i],
-    });
-  }
   new Setup(data)
     .save()
     .then(setup => assistant.updateAssistant(setup, baseUrl));
 
   res.redirect('/');
 });
+
+/**
+ * Zip questions and responses in a single array of objects
+ * @param {string[]} questions
+ * @param {string[]} responses
+ * @return {object[]}
+ */
+function createOptions(questions, responses) {
+  return questions.map((q, i) => ({
+    question: q,
+    response: responses[i],
+  }));
+}
 
 module.exports = router;

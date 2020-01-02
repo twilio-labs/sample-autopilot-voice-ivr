@@ -32,7 +32,9 @@ function getGreetingActions(setup, baseUrl, date) {
     .set('minutes', parseInt(endParts[1]));
   const now = moment(date);
   let actions;
-  if (0 < now.weekday() && now.weekday() < 6 && (now < start || now > end)) {
+  const isWeekend = 0 === now.weekday() || now.weekday() === 6;
+  const outsideBusinessHours = now < start || now > end;
+  if (isWeekend || outsideBusinessHours) {
     actions = [
       {
         say: `${message} Please hold while we connect you with an operator as you are calling outside of regular business hours.`,
@@ -66,47 +68,37 @@ function getGreetingActions(setup, baseUrl, date) {
  */
 async function updateOrCreateAssistant(name, baseUrl) {
   const uniqueName = slugify(name);
-  const assistants = await client.autopilot.assistants.list();
+  const defaults = {
+    defaults: {
+      assistant_initiation: `${baseUrl}/autopilot/greeting`,
+      fallback: `task://main-menu`,
+    },
+  };
+  const styleSheets = {
+    style_sheet: {
+      voice: {
+        say_voice: 'Polly.Matthew',
+      },
+    },
+  };
 
+  const assistants = await client.autopilot.assistants.list();
   let assistant = assistants.find(
     assistant => assistant.uniqueName === uniqueName
   );
-
   if (assistant === undefined) {
     console.log(`Create assistant: "${name}"`);
     assistant = await client.autopilot.assistants.create({
       friendlyName: name,
       uniqueName: uniqueName,
-      defaults: {
-        defaults: {
-          assistant_initiation: `${baseUrl}/autopilot/greeting`,
-          fallback: `task://main-menu`,
-        },
-      },
-      styleSheet: {
-        style_sheet: {
-          voice: {
-            say_voice: 'Polly.Matthew',
-          },
-        },
-      },
+      defaults: defaults,
+      styleSheet: styleSheets,
     });
   } else {
     console.log(`Update assistant: "${name}"`);
     await assistant.update({
-      defaults: {
-        defaults: {
-          assistant_initiation: `${baseUrl}/autopilot/greeting`,
-          fallback: `task://main-menu`,
-        },
-      },
-      styleSheet: {
-        style_sheet: {
-          voice: {
-            say_voice: 'Polly.Matthew',
-          },
-        },
-      },
+      defaults: defaults,
+      styleSheet: styleSheets,
     });
   }
 
@@ -253,6 +245,46 @@ async function createOrUpdateGenericTask(
 }
 
 /**
+ * Create all tasks for an option
+ * @param {AssistantInstance} assistant
+ * @param {TaskInstance[]} tasks
+ * @param {string} name
+ * @param {object[]} options
+ * @param {string} message
+ * @return {Promise<void>}
+ */
+async function createOrUpdateOptionTasks(
+  assistant,
+  tasks,
+  name,
+  options,
+  message
+) {
+  const nextTasks = [];
+  for (let idx = options.length; idx > 0; idx--) {
+    const taskName = `${name} Option ${idx}`;
+    const option = options[idx - 1];
+    await createOrUpdateGenericTask(
+      assistant,
+      tasks,
+      taskName,
+      option.response,
+      [option.question],
+      ['main-menu'].concat(nextTasks)
+    );
+    nextTasks.push(slugify(taskName));
+  }
+  await createOrUpdateGenericTask(
+    assistant,
+    tasks,
+    name,
+    message,
+    [name.toLowerCase()],
+    ['main-menu'].concat(nextTasks)
+  );
+}
+
+/**
  * Update or creates the whole workflow of the autopilot assistant
  * @param {Setup} setup
  * @param {string} baseUrl
@@ -271,50 +303,20 @@ async function updateAssistant(setup, baseUrl) {
 
     await createOrUpdateMainMenuTask(assistant, tasks, baseUrl);
 
-    let nextTasks = [];
-    for (let idx = setup.sales.options.length; idx > 0; idx--) {
-      const name = `Sales Option ${idx}`;
-      const option = setup.sales.options[idx - 1];
-      await createOrUpdateGenericTask(
-        assistant,
-        tasks,
-        name,
-        option.response,
-        [option.question],
-        ['main-menu'].concat(nextTasks)
-      );
-      nextTasks.push(slugify(name));
-    }
-    await createOrUpdateGenericTask(
+    await createOrUpdateOptionTasks(
       assistant,
       tasks,
       'Sales',
-      setup.sales.message,
-      ['sales'],
-      ['main-menu'].concat(nextTasks)
+      setup.sales.options,
+      setup.sales.message
     );
 
-    nextTasks = [];
-    for (let idx = setup.support.options.length; idx > 0; idx--) {
-      const name = `Support Option ${idx}`;
-      const option = setup.support.options[idx - 1];
-      await createOrUpdateGenericTask(
-        assistant,
-        tasks,
-        name,
-        option.response,
-        [option.question],
-        ['main-menu'].concat(nextTasks)
-      );
-      nextTasks.push(slugify(name));
-    }
-    await createOrUpdateGenericTask(
+    await createOrUpdateOptionTasks(
       assistant,
       tasks,
       'Support',
-      setup.support.message,
-      ['support'],
-      ['main-menu'].concat(nextTasks)
+      setup.support.options,
+      setup.support.message
     );
 
     await assistant.modelBuilds().create();

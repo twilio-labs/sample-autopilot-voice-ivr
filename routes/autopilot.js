@@ -12,34 +12,40 @@ router.post('/collect-main-menu', function(req, res, next) {
   const options = JSON.parse(req.body.Memory).twilio.collected_data.options;
   const answer = options.answers.option.answer;
   if (options.status === 'complete') {
-    if (['sales', 'support'].includes(answer)) {
-      res.send({
-        actions: [{ redirect: `task://${answer}` }],
-      });
-    } else if (answer === 'operator') {
-      res.send({
-        actions: [
-          {
-            handoff: {
-              channel: 'voice',
-              uri: `${req.protocol}://${req.hostname}${req.baseUrl}/operator-webhook`,
-              method: 'POST',
+    switch (answer) {
+      case 'sales':
+      case 'support':
+        res.send({
+          actions: [{ redirect: `task://${answer}` }],
+        });
+        break;
+      case 'operator':
+        res.send({
+          actions: [
+            {
+              handoff: {
+                channel: 'voice',
+                uri: `${req.protocol}://${req.hostname}${req.baseUrl}/operator-webhook`,
+                method: 'POST',
+              },
             },
-          },
-        ],
-      });
-    } else {
-      res.send({
-        actions: [
-          {
-            say: 'Invalid option',
-          },
-          {
-            redirect: 'task://main-menu',
-          },
-        ],
-      });
+          ],
+        });
+        break;
+      default:
+        res.send({
+          actions: [
+            {
+              say: 'Invalid option',
+            },
+            {
+              redirect: 'task://main-menu',
+            },
+          ],
+        });
     }
+  } else {
+    console.error('%0', options);
   }
 });
 
