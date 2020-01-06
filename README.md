@@ -8,8 +8,10 @@
 
 ## About
 
-This application shows how to build an IVR (Interactive Voice Response) application using [Twilio Autopilot](https://www.twilio.com/docs/autopilot).
-It has a basic setup for an IVR workflow with 
+Interactive Voice Response or IVR is an automated telephony system that interacts with human callers through the use of voice and touch-tone keypad selections (DTMF tones).
+
+This application shows how to build an IVR application using [Twilio Autopilot](https://www.twilio.com/docs/autopilot). Autopilot is a conversational AI platform to build, train, and deploy artificially intelligent applications that can interact with users over multiple channels.
+
 
 Implementations in other languages:
 
@@ -19,16 +21,9 @@ Implementations in other languages:
 
 ### How it works
 
-This application is only a barebones Node.js application using Express.js. Whenever, possible we should be using this. However, if you are using a framework like React.js, Angular or similar that comes with their own standardized application structure, you should try to merge these by using the same `README` structure and test coverage, configuration etc. as this project.
+This is a very simple application that provides a setup page where the user can enter all configurable values for the IVR tree. When the setup form is submitted it will run an async script to create all tasks for the IVR workflow in an [Autopilot Assistant](https://www.twilio.com/docs/autopilot/api/assistant). 
 
-<!--
-**TODO: UML Diagram**
-
-We can render UML diagrams using [Mermaid](https://mermaidjs.github.io/).
-
-
-**TODO: Describe how it works**
--->
+The application also provides a couple of endpoints to handle webhooks and return dynamic tasks for the IVR.
 
 ## Features
 
@@ -66,7 +61,7 @@ After the above requirements have been met:
 
 ```bash
 git clone git@github.com:TwilioDevEd/sample-autopilot-voice-ivr.git
-cd sample-template-nodejs
+cd sample-autopilot-voice-ivr
 ```
 
 2. Install dependencies
