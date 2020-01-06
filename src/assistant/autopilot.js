@@ -1,9 +1,3 @@
-const moment = require('moment');
-
-const cfg = require('./config');
-
-const client = require('twilio')(cfg.twilioAccountSid, cfg.twilioAuthToken);
-
 /**
  * Creates an slug from a name or title
  * @param {string} title
@@ -14,59 +8,13 @@ function slugify(title) {
 }
 
 /**
- * Generates the actions for the operator task
- * @param {Setup} setup
- * @param {string} baseUrl
- * @param {Date} date
- * @return {object[]}
- */
-function getGreetingActions(setup, baseUrl, date) {
-  const message = `Thanks for calling ${setup.companyName}.`;
-  const startParts = setup.businessHours.start.split(':');
-  const start = moment(date)
-    .set('hours', parseInt(startParts[0]))
-    .set('minutes', parseInt(startParts[1]));
-  const endParts = setup.businessHours.end.split(':');
-  const end = moment(date)
-    .set('hours', parseInt(endParts[0]))
-    .set('minutes', parseInt(endParts[1]));
-  const now = moment(date);
-  let actions;
-  const isWeekend = 0 === now.weekday() || now.weekday() === 6;
-  const outsideBusinessHours = now < start || now > end;
-  if (isWeekend || outsideBusinessHours) {
-    actions = [
-      {
-        say: `${message} Please hold while we connect you with an operator as you are calling outside of regular business hours.`,
-      },
-      {
-        handoff: {
-          channel: 'voice',
-          uri: `${baseUrl}/operator-webhook`,
-          method: 'POST',
-        },
-      },
-    ];
-  } else {
-    actions = [
-      {
-        say: message,
-      },
-      {
-        redirect: 'task://main-menu',
-      },
-    ];
-  }
-  return actions;
-}
-
-/**
  * Gets or creates a new assistant for the IVR Tutorial
+ * @param {TwilioClient} client
  * @param {string} name
  * @param {string} baseUrl
  * @return {Promise<AssistantInstance>}
  */
-async function updateOrCreateAssistant(name, baseUrl) {
+async function updateOrCreateAssistant(client, name, baseUrl) {
   const uniqueName = slugify(name);
   const defaults = {
     defaults: {
@@ -107,18 +55,27 @@ async function updateOrCreateAssistant(name, baseUrl) {
 
 /**
  * Links a phone number to an autopilot assistant
+ * @param {TwilioClient} client
  * @param {AssistantInstance} assistant
  * @param {string} accountSid
  * @param {string} phoneNumber
- * @return {Promise<void>}
+ * @return {Promise<IncomingPhoneNumberInstance|undefined>}
  */
-async function linkAssistantToPhoneNumber(assistant, accountSid, phoneNumber) {
+async function linkAssistantToPhoneNumber(
+  client,
+  assistant,
+  accountSid,
+  phoneNumber
+) {
   console.log('Link phone number to assistant');
   const incomingPhoneNumbers = await client.api.incomingPhoneNumbers.list();
   const incomingPhoneNumber = incomingPhoneNumbers.find(
     incomingPhoneNumbers => incomingPhoneNumbers.phoneNumber === phoneNumber
   );
-  await incomingPhoneNumber.update({
+  if (!incomingPhoneNumber) {
+    return incomingPhoneNumber;
+  }
+  return await incomingPhoneNumber.update({
     voiceMethod: 'POST',
     voiceUrl: `https://channels.autopilot.twilio.com/v1/${accountSid}/${assistant.sid}/twilio-voice`,
   });
@@ -284,48 +241,10 @@ async function createOrUpdateOptionTasks(
   );
 }
 
-/**
- * Update or creates the whole workflow of the autopilot assistant
- * @param {Setup} setup
- * @param {string} baseUrl
- * @return {Promise<void>}
- */
-async function updateAssistant(setup, baseUrl) {
-  try {
-    const assistant = await updateOrCreateAssistant('IVR Tutorial', baseUrl);
-    await linkAssistantToPhoneNumber(
-      assistant,
-      cfg.twilioAccountSid,
-      cfg.twilioPhoneNumber
-    );
-
-    const tasks = await assistant.tasks().list();
-
-    await createOrUpdateMainMenuTask(assistant, tasks, baseUrl);
-
-    await createOrUpdateOptionTasks(
-      assistant,
-      tasks,
-      'Sales',
-      setup.sales.options,
-      setup.sales.message
-    );
-
-    await createOrUpdateOptionTasks(
-      assistant,
-      tasks,
-      'Support',
-      setup.support.options,
-      setup.support.message
-    );
-
-    await assistant.modelBuilds().create();
-  } catch (e) {
-    console.error(e);
-  }
-}
-
 module.exports = {
-  updateAssistant,
-  getGreetingActions,
+  updateOrCreateAssistant,
+  linkAssistantToPhoneNumber,
+  createOrUpdateMainMenuTask,
+  createOrUpdateGenericTask,
+  createOrUpdateOptionTasks,
 };
