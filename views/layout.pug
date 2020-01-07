@@ -10,13 +10,13 @@ html
     link(rel='stylesheet', type='text/css', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
     block styles
     link(rel='stylesheet', href='/css/style.css')
-    
+
     title Voice-Powered IVR Chatbot with Autopilot
   body
     nav.navbar.navbar-default
       .container
         .navbar-header
-          a.navbar-brand(href='/') Autopilot IVR 
+          a.navbar-brand(href='/') Autopilot IVR
         div
           ul.nav.navbar-nav
             li
@@ -25,8 +25,13 @@ html
             li
               a(href='/setup')
                 | Setup
-    
     .container
+      if local
+        .row
+          div.alert.alert-danger(role='alert')
+            | You are using the application from a local address. It needs to be accessible from a public address for Twilio 
+            | to be able to connect with it. Check the project README to find out what options you have to make your 
+            | application publicly available.
       .row
         .col-lg-9
         block content
@@ -37,10 +42,10 @@ html
         | Made with 
         i.fa.fa-heart
         |  by your pals
-        |    
+        |
         a(href='http://www.twilio.com') @twilio
       // /container
-      
+
       script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
       script(src='https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.1.2/parsley.min.js')
       block scripts

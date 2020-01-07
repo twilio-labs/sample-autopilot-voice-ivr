@@ -12,12 +12,15 @@ router.get('/', function(req, res, next) {
   res.render('index', {
     title: 'Voice-Powered IVR Chatbot with Autopilot',
     number: cfg.twilioPhoneNumber,
+    local: req.hostname.includes('local'),
   });
 });
 
 // GET: /setup
 router.get('/setup', function(req, res, next) {
-  Setup.get().then(setup => res.render('setup', setup));
+  Setup.get().then(setup =>
+    res.render('setup', { setup: setup, local: req.hostname.includes('local') })
+  );
 });
 
 router.post('/setup', function(req, res, next) {

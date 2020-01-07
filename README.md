@@ -58,45 +58,60 @@ all the config values we need to run the application:
 After the above requirements have been met:
 
 1. Clone this repository and `cd` into it
+    
+    ```bash
+    git clone git@github.com:TwilioDevEd/sample-autopilot-voice-ivr.git
+    cd sample-autopilot-voice-ivr
+    ```
 
-```bash
-git clone git@github.com:TwilioDevEd/sample-autopilot-voice-ivr.git
-cd sample-autopilot-voice-ivr
-```
+1. Install dependencies
+    
+    ```bash
+    npm install
+    ```
 
-2. Install dependencies
+1. Set your environment variables
+    
+    ```bash
+    npm run setup
+    ```
+    
+    See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
 
-```bash
-npm install
-```
+1. Run the application
 
-3. Set your environment variables
+    ```bash
+    npm start
+    ```
+    
+    Alternatively, you can use this command to start the server in development mode. It will reload whenever you change any files.
+    
+    ```bash
+    npm run dev
+    ```
+    
+    Your application is now accessible at [http://localhost:3000](http://localhost:3000/)
 
-```bash
-npm run setup
-```
+1. Make the application visible from the outside world.
 
-See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
+    Your application needs to be accessible in a public internet address for Twilio to be able to connect with it. You can do that in different ways, [deploying the app to a public provider](#cloud-deployment) or using [ngrok](https://ngrok.com/) to create a tunnel to your local server.
+    
+    If you have ngrok installed to open a tunnel to you local server run the following command
+    ```
+    ngrok http 3000
+    ```
+    
+    Now your application should be available in a url like:
+    ```
+    https://<unique_id>.ngrok.io/
+    ```
 
-4. Run the application
+1. Run the autopilot assistant setup
 
-```bash
-npm start
-```
-
-Alternatively, you can use this command to start the server in development mode. It will reload whenever you change any files.
-
-```bash
-npm run dev
-```
-
-Your application is now accessible at [http://localhost:3000](http://localhost:3000/)
-
-5. Make the application visible from the outside world using ngrok.
-
-Your application needs to be accessible in a public internet address for Twilio to be able to connect with it. 
-
-That's it!
+    The application provides a setup form that when submitted it will create or update the assistant and its tasks.
+    Go to `/setup` in your application, update the configurable fields accordingly, and submit the form to set up the autopilot assistant.
+  
+    That's it! Now you can try the IVR calling your Twilio phone number.
 
 ### Tests
 
