@@ -2,6 +2,7 @@ const expect = require('chai').expect;
 const supertest = require('supertest');
 const app = require('../server');
 const agent = supertest(app);
+const Setup = require('../src/db').Setup;
 
 describe('autopilot ivr', function() {
   describe('POST /autopilot/collect-main-menu', function() {
@@ -70,14 +71,16 @@ describe('autopilot ivr', function() {
   });
 
   describe('POST /autopilot/operator-webhook', function() {
-    it('returns twiml with dial', function(done) {
-      agent
-        .post('/autopilot/operator-webhook')
-        .expect(function(response) {
-          expect(response.text).to.contain('<Response><Dial>');
-          expect(response.text).to.contain('</Dial></Response>');
-        })
-        .expect(200, done);
+    it('returns twiml with dial', async function() {
+      const setup = await Setup.get();
+      setup.operator.phoneNumber = '+12345678901';
+      await setup.save();
+
+      const response = await agent.post('/autopilot/operator-webhook');
+
+      expect(response.status).to.eql(200);
+      expect(response.text).to.contain('<Response><Dial>');
+      expect(response.text).to.contain('</Dial></Response>');
     });
   });
 });
