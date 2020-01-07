@@ -39,7 +39,7 @@ const defaultSetup = {
     ],
   },
   operator: {
-    phoneNumber: '+1234567890',
+    phoneNumber: '',
   },
 };
 

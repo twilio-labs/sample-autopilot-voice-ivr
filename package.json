@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node .",
     "setup": "configure-env",
-    "pretest": "cross-env NODE_ENV=test",
-    "test": "eslint . && mocha test",
+    "test": "eslint . && cross-env NODE_ENV=test mocha test",
     "format": "eslint . --fix",
     "dev": "nodemon .",
     "build": "",
