@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "key": "tasks",
+    "page_size": 50,
+    "next_page_url": null,
+    "url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks?PageSize=50&Page=0",
+    "page": 0,
+    "first_page_url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks?PageSize=50&Page=0",
+    "previous_page_url": null
+  },
+  "tasks": [
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "actions_url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD4f7f0f31053e6fbf7454cbc8e7355838/Actions",
+      "assistant_sid": "UAd76209132b33296797a4f9968dfbdd6e",
+      "date_created": "2019-12-23T20:31:35.000Z",
+      "date_updated": "2020-01-02T16:58:29.000Z",
+      "friendly_name": "Support Option 2",
+      "links": {
+        "statistics": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD4f7f0f31053e6fbf7454cbc8e7355838/Statistics",
+        "task_actions": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD4f7f0f31053e6fbf7454cbc8e7355838/Actions",
+        "samples": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD4f7f0f31053e6fbf7454cbc8e7355838/Samples",
+        "fields": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD4f7f0f31053e6fbf7454cbc8e7355838/Fields"
+      },
+      "sid": "UD4f7f0f31053e6fbf7454cbc8e7355838",
+      "unique_name": "support-option-2",
+      "url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD4f7f0f31053e6fbf7454cbc8e7355838"
+    },
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "actions_url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDd112b7d190a9f05815d49a5dc53c6327/Actions",
+      "assistant_sid": "UAd76209132b33296797a4f9968dfbdd6e",
+      "date_created": "2019-12-23T20:31:34.000Z",
+      "date_updated": "2020-01-02T16:58:31.000Z",
+      "friendly_name": "Support Option 1",
+      "links": {
+        "statistics": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDd112b7d190a9f05815d49a5dc53c6327/Statistics",
+        "task_actions": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDd112b7d190a9f05815d49a5dc53c6327/Actions",
+        "samples": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDd112b7d190a9f05815d49a5dc53c6327/Samples",
+        "fields": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDd112b7d190a9f05815d49a5dc53c6327/Fields"
+      },
+      "sid": "UDd112b7d190a9f05815d49a5dc53c6327",
+      "unique_name": "support-option-1",
+      "url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDd112b7d190a9f05815d49a5dc53c6327"
+    },
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "actions_url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDb5b5fc5ee5385fdf07b22344201623c1/Actions",
+      "assistant_sid": "UAd76209132b33296797a4f9968dfbdd6e",
+      "date_created": "2019-12-23T20:31:33.000Z",
+      "date_updated": "2020-01-02T16:58:33.000Z",
+      "friendly_name": "Support",
+      "links": {
+        "statistics": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDb5b5fc5ee5385fdf07b22344201623c1/Statistics",
+        "task_actions": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDb5b5fc5ee5385fdf07b22344201623c1/Actions",
+        "samples": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDb5b5fc5ee5385fdf07b22344201623c1/Samples",
+        "fields": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDb5b5fc5ee5385fdf07b22344201623c1/Fields"
+      },
+      "sid": "UDb5b5fc5ee5385fdf07b22344201623c1",
+      "unique_name": "support",
+      "url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDb5b5fc5ee5385fdf07b22344201623c1"
+    },
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "actions_url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD36a004ae77820c08f0c205a7f5e04b1a/Actions",
+      "assistant_sid": "UAd76209132b33296797a4f9968dfbdd6e",
+      "date_created": "2019-12-23T20:31:32.000Z",
+      "date_updated": "2020-01-02T16:58:22.000Z",
+      "friendly_name": "Sales Option 2",
+      "links": {
+        "statistics": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD36a004ae77820c08f0c205a7f5e04b1a/Statistics",
+        "task_actions": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD36a004ae77820c08f0c205a7f5e04b1a/Actions",
+        "samples": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD36a004ae77820c08f0c205a7f5e04b1a/Samples",
+        "fields": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD36a004ae77820c08f0c205a7f5e04b1a/Fields"
+      },
+      "sid": "UD36a004ae77820c08f0c205a7f5e04b1a",
+      "unique_name": "sales-option-2",
+      "url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD36a004ae77820c08f0c205a7f5e04b1a"
+    },
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "actions_url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD6abd44c6bc0b9629dabf81b039e0a2df/Actions",
+      "assistant_sid": "UAd76209132b33296797a4f9968dfbdd6e",
+      "date_created": "2019-12-23T20:31:31.000Z",
+      "date_updated": "2020-01-02T16:58:25.000Z",
+      "friendly_name": "Sales Option 1",
+      "links": {
+        "statistics": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD6abd44c6bc0b9629dabf81b039e0a2df/Statistics",
+        "task_actions": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD6abd44c6bc0b9629dabf81b039e0a2df/Actions",
+        "samples": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD6abd44c6bc0b9629dabf81b039e0a2df/Samples",
+        "fields": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD6abd44c6bc0b9629dabf81b039e0a2df/Fields"
+      },
+      "sid": "UD6abd44c6bc0b9629dabf81b039e0a2df",
+      "unique_name": "sales-option-1",
+      "url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD6abd44c6bc0b9629dabf81b039e0a2df"
+    },
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "actions_url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDda629702c449bebcb117d1cfaae7848a/Actions",
+      "assistant_sid": "UAd76209132b33296797a4f9968dfbdd6e",
+      "date_created": "2019-12-23T20:31:30.000Z",
+      "date_updated": "2020-01-02T16:58:27.000Z",
+      "friendly_name": "Sales",
+      "links": {
+        "statistics": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDda629702c449bebcb117d1cfaae7848a/Statistics",
+        "task_actions": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDda629702c449bebcb117d1cfaae7848a/Actions",
+        "samples": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDda629702c449bebcb117d1cfaae7848a/Samples",
+        "fields": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDda629702c449bebcb117d1cfaae7848a/Fields"
+      },
+      "sid": "UDda629702c449bebcb117d1cfaae7848a",
+      "unique_name": "sales",
+      "url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDda629702c449bebcb117d1cfaae7848a"
+    },
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "actions_url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da/Actions",
+      "assistant_sid": "UAd76209132b33296797a4f9968dfbdd6e",
+      "date_created": "2019-12-23T20:31:29.000Z",
+      "date_updated": "2020-01-02T16:58:21.000Z",
+      "friendly_name": "Main menu",
+      "links": {
+        "statistics": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da/Statistics",
+        "task_actions": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da/Actions",
+        "samples": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da/Samples",
+        "fields": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da/Fields"
+      },
+      "sid": "UD216bb9fafdb54c919abe83b530f486da",
+      "unique_name": "main-menu",
+      "url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da"
+    },
+    {
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "actions_url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDfb45a8fc898512d41a10b598c1bdde4c/Actions",
+      "assistant_sid": "UAd76209132b33296797a4f9968dfbdd6e",
+      "date_created": "2019-12-23T20:31:27.000Z",
+      "date_updated": "2019-12-26T14:46:57.000Z",
+      "friendly_name": "Greeting",
+      "links": {
+        "statistics": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDfb45a8fc898512d41a10b598c1bdde4c/Statistics",
+        "task_actions": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDfb45a8fc898512d41a10b598c1bdde4c/Actions",
+        "samples": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDfb45a8fc898512d41a10b598c1bdde4c/Samples",
+        "fields": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDfb45a8fc898512d41a10b598c1bdde4c/Fields"
+      },
+      "sid": "UDfb45a8fc898512d41a10b598c1bdde4c",
+      "unique_name": "greeting",
+      "url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UDfb45a8fc898512d41a10b598c1bdde4c"
+    }
+
+  ]
+}

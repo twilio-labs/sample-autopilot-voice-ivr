@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  h1 IVR Setup
+  form(method='post')
+    .form-group
+        label(for='company-name') Company Name
+        input#company-name.form-control(name='companyName' value=setup.companyName)
+    .form-group
+      h3 Sales Options
+      label(for='sales-message') Message
+      textarea#sales-message.form-control(name='sales.message') #{setup.sales.message}
+      each val, idx in setup.sales.options
+        label(for='sales-option-'+idx+'-question') Question #{idx+1}
+        input.form-control(id='sales-option-'+idx+'-question' name='sales.option.questions' value=val.question)
+        label(for='sales-option-'+idx+'-response') Response #{idx+1}
+        textarea.form-control(id='sales-option-'+idx+'-response' name='sales.option.responses') #{val.response}
+    .form-group
+      h3 Support Options
+      label(for='support-message') Message
+      textarea#support-message.form-control(name='support.message') #{setup.support.message}
+      each val, idx in setup.support.options
+        label(for='support-option-'+idx+'-question') Question #{idx+1}
+        input.form-control(id='support-option-'+idx+'-question' name='support.option.questions' value=val.question)
+        label(for='support-option-'+idx+'-message') Response #{idx+1}
+        textarea.form-control(id='support-option-'+idx+'-message' name='support.option.responses') #{val.response}
+    .form-group
+      h3 Operator
+      label(for='phone-number') Phone Number
+      input#phone-number.form-control(name='operator.phoneNumber' value=setup.operator.phoneNumber required='required')
+      small.form-text.text-muted Enter a valid phone number to redirect calls if the operator option is selected
+      h4 Business hours
+      label(for='business-hours-start') From
+      input#business-hours-start.form-control(name='businessHours.start' type='time' value=setup.businessHours.start)
+      label(for='business-hours-end') To
+      input#business-hours-end.form-control(name='businessHours.end' type='time' value=setup.businessHours.end)
+    unless local
+      button.btn.btn-primary.mb-2(type='submit') Submit

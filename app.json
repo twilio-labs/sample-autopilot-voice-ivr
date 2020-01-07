@@ -1,6 +1,6 @@
 {
-  "name": "Appointment Reminders powered by Twilio",
-  "description": "A template for getting started with Appointment Reminders using Twilio and Node.js.",
+  "name": "Voice-Powered IVR Chatbot with Autopilot",
+  "description": "A template for getting started with Twilio Autopilot and Node.js.",
   "website": "https://twilio.com",
   "logo": "https://www.twilio.com/marketing/bundles/marketing/img/favicons/favicon_114.png",
   "success_url": "/",

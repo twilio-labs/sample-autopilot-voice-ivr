@@ -1,0 +1,17 @@
+{
+  "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "actions_url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da/Actions",
+  "assistant_sid": "UAd76209132b33296797a4f9968dfbdd6e",
+  "date_created": "2019-12-23T20:31:29.000Z",
+  "date_updated": "2020-01-02T16:58:21.000Z",
+  "friendly_name": "Fake Task",
+  "links": {
+    "statistics": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da/Statistics",
+    "task_actions": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da/Actions",
+    "samples": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da/Samples",
+    "fields": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da/Fields"
+  },
+  "sid": "UD216bb9fafdb54c919abe83b530f486da",
+  "unique_name": "fake-task",
+  "url": "https://autopilot.twilio.com/v1/Assistants/UAd76209132b33296797a4f9968dfbdd6e/Tasks/UD216bb9fafdb54c919abe83b530f486da"
+}

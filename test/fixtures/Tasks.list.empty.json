@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "key": "tasks",
+    "page_size": 50,
+    "next_page_url": null,
+    "url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks?PageSize=50&Page=0",
+    "page": 0,
+    "first_page_url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks?PageSize=50&Page=0",
+    "previous_page_url": "https://autopilot.twilio.com/v1/Assistants/UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks?PageSize=50&Page=0"
+  },
+  "tasks": []
+}

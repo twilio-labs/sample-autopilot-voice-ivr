@@ -2,13 +2,16 @@
 <img  src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg"  alt="Twilio"  width="250"  />
 </a>
  
-# Twilio Sample App Template
+# Voice-Powered IVR Chatbot with Autopilot
 
-[![Actions Status](https://github.com/twilio-labs/sample-template-nodejs/workflows/Node%20CI/badge.svg)](https://github.com/twilio-labs/sample-appointment-reminders/actions)
+[![Actions Status](https://github.com/TwilioDevEd/sample-autopilot-voice-ivr/workflows/Node%20CI/badge.svg)](https://github.com/TwilioDevEd/sample-autopilot-voice-ivr/actions)
 
 ## About
 
-This is a GitHub template for creating other [Twilio] sample/template apps. It contains a variety of features that should ideally be included in every Twilio sample app. You can use [GitHub's repository template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) functionality to create a copy of this.
+Interactive Voice Response or IVR is an automated telephony system that interacts with human callers through the use of voice and touch-tone keypad selections (DTMF tones).
+
+This application shows how to build an IVR application using [Twilio Autopilot](https://www.twilio.com/docs/autopilot). Autopilot is a conversational AI platform to build, train, and deploy artificially intelligent applications that can interact with users over multiple channels.
+
 
 Implementations in other languages:
 
@@ -18,35 +21,18 @@ Implementations in other languages:
 
 ### How it works
 
-This application is only a barebones Node.js application using Express.js. Whenever, possible we should be using this. However, if you are using a framework like React.js, Angular or similar that comes with their own standardized application structure, you should try to merge these by using the same `README` structure and test coverage, configuration etc. as this project.
+This is a very simple application that provides a setup page where the user can enter all configurable values for the IVR tree. When the setup form is submitted it will run an async script to create all tasks for the IVR workflow in an [Autopilot Assistant](https://www.twilio.com/docs/autopilot/api/assistant). 
 
-<!--
-**TODO: UML Diagram**
-
-We can render UML diagrams using [Mermaid](https://mermaidjs.github.io/).
-
-
-**TODO: Describe how it works**
--->
+The application also provides a couple of endpoints to handle webhooks and return dynamic tasks for the IVR.
 
 ## Features
 
 - Node.js web server using [Express.js](https://npm.im/express)
-- Basic web user interface using [Pug](https://npm.im/pug) for templating and Bootstrap for UI
-- User interface to create reminders.
+- User interface to setup IVR responses using [Twilio Helper Library](https://www.twilio.com/docs/libraries/node).
+- Small JSON database using lowdb.
 - Unit tests using [`mocha`](https://npm.im/mocha) and [`chai`](https://npm.im/chai)
 - [Automated CI testing using GitHub Actions](/.github/workflows/nodejs.yml)
-- Linting and formatting using [ESLint](https://npm.im/eslint) and [Prettier](https://npm.im/prettier)
-- Interactive configuration of environment variables upon running `npm run setup` using [`configure-env`](https://npm.im/configure-env)
-- Project specific environment variables using `.env` files and [`dotenv-safe`](https://npm.im/dotenv-safe) by comparing `.env.example` and `.env`.
 - One click deploy buttons for Heroku, Glitch and now.sh
-
-## How to use it
-
-1. Create a copy using [GitHub's repository template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) functionality
-2. Update the [`README.md`](README.md), [`package.json`](package.json) and [`app.json`](app.json) with the respective values.
-3. Build your app as necessary while making sure the tests pass.
-4. Publish your app to GitHub
 
 ## Set up
 
@@ -58,7 +44,7 @@ We can render UML diagrams using [Mermaid](https://mermaidjs.github.io/).
 ### Twilio Account Settings
 
 This application should give you a ready-made starting point for writing your
-own appointment reminder application. Before we begin, we need to collect
+own IVR application using Autopilot. Before we begin, we need to collect
 all the config values we need to run the application:
 
 | Config&nbsp;Value | Description                                                                                                                                                  |
@@ -72,41 +58,60 @@ all the config values we need to run the application:
 After the above requirements have been met:
 
 1. Clone this repository and `cd` into it
+    
+    ```bash
+    git clone git@github.com:TwilioDevEd/sample-autopilot-voice-ivr.git
+    cd sample-autopilot-voice-ivr
+    ```
 
-```bash
-git clone git@github.com:twilio-labs/sample-template-nodejs.git
-cd sample-template-nodejs
-```
+1. Install dependencies
+    
+    ```bash
+    npm install
+    ```
 
-2. Install dependencies
+1. Set your environment variables
+    
+    ```bash
+    npm run setup
+    ```
+    
+    See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
 
-```bash
-npm install
-```
+1. Run the application
 
-3. Set your environment variables
+    ```bash
+    npm start
+    ```
+    
+    Alternatively, you can use this command to start the server in development mode. It will reload whenever you change any files.
+    
+    ```bash
+    npm run dev
+    ```
+    
+    Your application is now accessible at [http://localhost:3000](http://localhost:3000/)
 
-```bash
-npm run setup
-```
+1. Make the application visible from the outside world.
 
-See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
+    Your application needs to be accessible in a public internet address for Twilio to be able to connect with it. You can do that in different ways, [deploying the app to a public provider](#cloud-deployment) or using [ngrok](https://ngrok.com/) to create a tunnel to your local server.
+    
+    If you have ngrok installed to open a tunnel to you local server run the following command
+    ```
+    ngrok http 3000
+    ```
+    
+    Now your application should be available in a url like:
+    ```
+    https://<unique_id>.ngrok.io/
+    ```
 
-4. Run the application
+1. Run the autopilot assistant setup
 
-```bash
-npm start
-```
-
-Alternatively, you can use this command to start the server in development mode. It will reload whenever you change any files.
-
-```bash
-npm run dev
-```
-
-5. Navigate to [http://localhost:3000](http://localhost:3000)
-
-That's it!
+    The application provides a setup form that when submitted it will create or update the assistant and its tasks.
+    Go to `/setup` in your application, update the configurable fields accordingly, and submit the form to set up the autopilot assistant.
+  
+    That's it! Now you can try the IVR calling your Twilio phone number.
 
 ### Tests
 
@@ -124,19 +129,21 @@ Please be aware that some of these might charge you for the usage or might make 
 
 | Service                           |                                                                                                                                                                                                                           |
 | :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Heroku](https://www.heroku.com/) | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)                                                                                                                                       |
-| [Glitch](https://glitch.com)      | [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/clone-from-repo?REPO_URL=https://github.com/twilio-labs/sample-template-nodejs.git) |
-| [Zeit](https://zeit.co/)          | [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/twilio-labs/sample-template-nodejs/tree/master)                                                                 |
+| [Heroku](https://www.heroku.com/) | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TwilioDeved/sample-autopilot-voice-ivr/tree/master)                                                                                                                                       |
+| [Glitch](https://glitch.com)      | [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/clone-from-repo?REPO_URL=https://github.com/TwilioDevEd/sample-autopilot-voice-ivr.git) |
+| [Zeit](https://zeit.co/)          | [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/TwilioDevEd/sample-autopilot-voice-ivr/tree/master)                                                                 |
+
 
 ## Resources
 
-- [GitHub's repository template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) functionality
+- [Getting started with Twilio Autopilot (Video)](https://www.youtube.com/watch?v=edViFb-A0zw)
+- [Autopilot Quickstart](https://www.twilio.com/docs/autopilot/quickstart)
 
 ## Contributing
 
-This template is open source and welcomes contributions. All contributions are subject to our [Code of Conduct](https://github.com/twilio-labs/.github/blob/master/CODE_OF_CONDUCT.md).
+This tutorial is open source and welcomes contributions. All contributions are subject to our [Code of Conduct](https://github.com/twilio-labs/.github/blob/master/CODE_OF_CONDUCT.md).
 
-[Visit the project on GitHub](https://github.com/twilio-labs/sample-template-nodejs)
+[Visit the project on GitHub](https://github.com/TwilioDevEd/sample-autopilot-voice-ivr)
 
 ## License
 

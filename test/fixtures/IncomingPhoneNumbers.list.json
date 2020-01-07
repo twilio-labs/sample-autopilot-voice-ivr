@@ -1,0 +1,52 @@
+{
+  "first_page_uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json?PageSize=20&Page=0",
+  "end": 0,
+  "previous_page_uri": null,
+  "incoming_phone_numbers": [
+    {
+      "sid": "PN1233f9d1da6cd8d4c29b4108c33d5b54",
+      "account_sid": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "friendly_name": "(201) 425-0684",
+      "phone_number": "+12345678901",
+      "voice_url": "https://channels.autopilot.twilio.com/v1/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX/UAd76209132b33296797a4f9968dfbdd6e/twilio-voice",
+      "voice_method": "POST",
+      "voice_fallback_url": "",
+      "voice_fallback_method": "POST",
+      "voice_caller_id_lookup": false,
+      "date_created": "Mon, 02 Dec 2019 19:34:45 +0000",
+      "date_updated": "Thu, 02 Jan 2020 16:58:20 +0000",
+      "sms_url": "https://70d875dc.ngrok.io/api/incoming",
+      "sms_method": "POST",
+      "sms_fallback_url": "",
+      "sms_fallback_method": "POST",
+      "address_requirements": "none",
+      "beta": false,
+      "capabilities": {
+        "voice": true,
+        "sms": true,
+        "mms": true,
+        "fax": true
+      },
+      "voice_receive_mode": "voice",
+      "status_callback": "",
+      "status_callback_method": "POST",
+      "api_version": "2010-04-01",
+      "voice_application_sid": "",
+      "sms_application_sid": "",
+      "origin": "twilio",
+      "trunk_sid": null,
+      "emergency_status": "Inactive",
+      "emergency_address_sid": null,
+      "address_sid": null,
+      "identity_sid": null,
+      "bundle_sid": null,
+      "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers/PN1233f9d1da6cd8d4c29b4108c33d5b54.json",
+      "status": "in-use"
+    }
+  ],
+  "uri": "/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX/IncomingPhoneNumbers.json?PageSize=20&Page=0",
+  "page_size": 20,
+  "start": 0,
+  "next_page_uri": null,
+  "page": 0
+}
