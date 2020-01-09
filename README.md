@@ -4,7 +4,7 @@
  
 # Voice-Powered IVR Chatbot with Autopilot
 
-[![Actions Status](https://github.com/TwilioDevEd/sample-autopilot-voice-ivr/workflows/Node%20CI/badge.svg)](https://github.com/TwilioDevEd/sample-autopilot-voice-ivr/actions)
+[![Actions Status](https://github.com/twilio-labs/sample-autopilot-voice-ivr/workflows/Node%20CI/badge.svg)](https://github.com/twilio-labs/sample-autopilot-voice-ivr/actions)
 
 ## About
 
@@ -60,7 +60,7 @@ After the above requirements have been met:
 1. Clone this repository and `cd` into it
     
     ```bash
-    git clone git@github.com:TwilioDevEd/sample-autopilot-voice-ivr.git
+    git clone git@github.com:twilio-labs/sample-autopilot-voice-ivr.git
     cd sample-autopilot-voice-ivr
     ```
 
@@ -129,9 +129,9 @@ Please be aware that some of these might charge you for the usage or might make 
 
 | Service                           |                                                                                                                                                                                                                           |
 | :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Heroku](https://www.heroku.com/) | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TwilioDeved/sample-autopilot-voice-ivr/tree/master)                                                                                                                                       |
-| [Glitch](https://glitch.com)      | [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/clone-from-repo?REPO_URL=https://github.com/TwilioDevEd/sample-autopilot-voice-ivr.git) |
-| [Zeit](https://zeit.co/)          | [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/TwilioDevEd/sample-autopilot-voice-ivr/tree/master)                                                                 |
+| [Heroku](https://www.heroku.com/) | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/twilio-labs/sample-autopilot-voice-ivr/tree/master)                                                                                                                                       |
+| [Glitch](https://glitch.com)      | [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/clone-from-repo?REPO_URL=https://github.com/twilio-labs/sample-autopilot-voice-ivr.git) |
+| [Zeit](https://zeit.co/)          | [![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/twilio-labs/sample-autopilot-voice-ivr/tree/master)                                                                 |
 
 
 ## Resources
@@ -143,7 +143,7 @@ Please be aware that some of these might charge you for the usage or might make 
 
 This tutorial is open source and welcomes contributions. All contributions are subject to our [Code of Conduct](https://github.com/twilio-labs/.github/blob/master/CODE_OF_CONDUCT.md).
 
-[Visit the project on GitHub](https://github.com/TwilioDevEd/sample-autopilot-voice-ivr)
+[Visit the project on GitHub](https://github.com/twilio-labs/sample-autopilot-voice-ivr)
 
 ## License
 
